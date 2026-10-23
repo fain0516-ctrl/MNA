@@ -1,0 +1,12 @@
+# 표지 로그: 게임 내부 스레드별 CPU (상위 5개 발췌)
+# adb shell top -H -b -n 1 -p <게임 PID>
+# 기기: Galaxy S10+ SM-G975N (Exynos 9820)
+# 측정일: 2026-10-22, 부하: 트릭컬(com.epidgames.trickcalrevive) 플레이 중
+#
+800%cpu 158%user   3%nice 116%sys 523%idle   0%iow   0%irq   0%sirq   0%host
+  TID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ THREAD          PROCESS
+16973 u0_a670      20   0  25G 2.2G 706M S 58.0  31.0  77:05.20 UnityMain       com.epidgames.trickcalrevive
+17046 u0_a670       0 -20  25G 2.2G 706M S 29.0  31.0  13:58.84 mali-cmar-backe com.epidgames.trickcalrevive
+17047 u0_a670      18  -2  25G 2.2G 706M S 25.8  31.0  28:41.57 UnityGfxDeviceW com.epidgames.trickcalrevive
+17015 u0_a670      20   0  25G 2.2G 706M S  6.4  31.0   8:01.44 Thread-24       com.epidgames.trickcalrevive
+17016 u0_a670      20   0  25G 2.2G 706M S  6.4  31.0   5:20.83 Thread-27       com.epidgames.trickcalrevive

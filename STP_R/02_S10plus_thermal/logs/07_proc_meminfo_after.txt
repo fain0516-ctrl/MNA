@@ -1,0 +1,9 @@
+# 표지 로그: 메모리 정리 후 요약 (발췌, 재부팅 직후)
+# adb shell cat /proc/meminfo
+# 기기: Galaxy S10+ SM-G975N, 측정일: 2026-10-22
+#
+MemTotal:        7597568 kB
+MemFree:          157984 kB
+MemAvailable:    3262440 kB
+SwapTotal:       8388604 kB
+SwapFree:        6155516 kB

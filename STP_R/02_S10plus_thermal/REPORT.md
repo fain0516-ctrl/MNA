@@ -52,4 +52,16 @@ B는 이미 데워진 상태(54°C)에서 시작했으므로 숫자는 대략적
 - [probe.sh](tools/probe.sh): 기기 쪽 측정 스크립트
 - [S10plus_memory_debloat.md](tools/S10plus_memory_debloat.md): 메모리 순위와 비활성화 목록
 
-원본 측정 로그는 개인 기기 정보(설치 앱 목록, 네트워크 주소 등)가 섞여 있어 이 저장소에 넣지 않았습니다.
+## 표지 로그 (logs/)
+
+원본 측정 로그는 개인 기기 정보(설치 앱 목록, 네트워크 주소 등)가 섞여 있어 그대로 넣지 않았습니다. 대신 각 파일 머리에 명령·조건·날짜를 적고, 위 숫자를 확인할 수 있는 줄만 남긴 발췌본을 넣었습니다.
+
+| 파일 | 내용 | 근거가 되는 항목 |
+|---|---|---|
+| [01_thermal_status.txt](logs/01_thermal_status.txt) | 부품별 온도 | 1장 |
+| [02_cpuinfo.txt](logs/02_cpuinfo.txt) | 게임·시스템 CPU 사용률 | 1장 |
+| [03_game_threads.txt](logs/03_game_threads.txt) | 게임 스레드 상위 5개 | 1장 |
+| [04_freq_A_perfmgmt_on.txt](logs/04_freq_A_perfmgmt_on.txt) | 실험 A, 60회 전체 | 2장 |
+| [05_freq_B_off_standard.txt](logs/05_freq_B_off_standard.txt) | 실험 B, 60회 전체 | 2장 |
+| [06_freq_C_off_performance.txt](logs/06_freq_C_off_performance.txt) | 실험 C, 60회 전체 | 2장 |
+| [07_proc_meminfo_after.txt](logs/07_proc_meminfo_after.txt) | 정리 후 메모리 요약 | 3장 |
