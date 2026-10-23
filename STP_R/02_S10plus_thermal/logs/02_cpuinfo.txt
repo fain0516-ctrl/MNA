@@ -1,0 +1,13 @@
+# 표지 로그: 앱별 CPU 사용률 (게임·시스템 관련 줄만 발췌, 다른 앱 목록은 제외)
+# adb shell dumpsys cpuinfo
+# 기기: Galaxy S10+ SM-G975N (Exynos 9820)
+# 측정일: 2026-10-22, 부하: 트릭컬(com.epidgames.trickcalrevive) 플레이 중
+#
+Load: 14.69 / 14.98 / 14.47
+  146% 16832/com.epidgames.trickcalrevive: 118% user + 27% kernel / faults: 1931 minor 3 major
+  25% 628/surfaceflinger: 17% user + 7.9% kernel / faults: 830 minor 2 major
+  20% 620/audioserver: 18% user + 2% kernel
+  7.5% 966/system_server: 3.9% user + 3.6% kernel / faults: 4954 minor 115 major
+  7.3% 18234/com.samsung.android.game.gos: 5.7% user + 1.5% kernel / faults: 2630 minor 2 major
+  6.9% 555/android.hardware.graphics.composer@2.2-service: 3.2% user + 3.6% kernel
+32% TOTAL: 22% user + 9.5% kernel + 0% iowait + 0.2% softirq
