@@ -255,3 +255,40 @@ Raspberry Pi
 - [R1] I. Kalkov, D. Franke, S. Kowalewski, "A Real-time Extension to the Android Platform", RWTH Aachen University: https://publications.embedded.rwth-aachen.de/file/57
 
 용어 메모: "PD 패스스루"는 허브 판매 페이지에서 흔히 쓰는 표현이지만 위 출처 중 이 단어를 정의한 공식 문서는 없습니다. 이 문서에서는 "허브가 충전기 전원을 폰으로 넘겨주는 기능"이라는 뜻으로만 썼습니다. "USB host mode", "CDC", "Protect battery", "RT_PREEMPT", "connectedDevice", "Wireless debugging"은 각각 해당 출처에 그대로 나오는 용어입니다.
+
+---
+
+## 8. 추가 확인 (2026-10-23)
+
+### 8.1 0단계 결과: USB host 지원 확인
+
+`adb shell pm list features | findstr usb` 결과:
+
+```
+feature:android.hardware.usb.accessory
+feature:android.hardware.usb.host
+feature:com.sec.feature.usb_authentication
+```
+
+`android.hardware.usb.host`가 있으므로 이 S10+는 USB host를 지원합니다. `com.sec.feature.usb_authentication`은 삼성 고유 항목이며, 공개된 설명을 찾지 못해 의미를 단정하지 않습니다.
+
+### 8.2 계획 변경: USB-C로 개조된 피코 + PD 없는 단순 T자 커넥터
+
+**USB-C 피코:** 5.3절의 커넥터 문제는 사라집니다. 단, USB-C 포트로 전원을 받으려면 CC 핀에 풀다운 저항(흔히 5.1kΩ)이 있어야 하고, 없으면 "your device will never get power from a USB-C port"입니다(출처 [H4]). 폰과 C to C로 연결했을 때 피코 전원이 들어오는지 먼저 확인합니다.
+
+**PD 없는 단순 T자 커넥터:** 이 용도(충전하면서 폰이 호스트)에는 맞지 않을 가능성이 높습니다.
+- TI 자료: "A source port takes on the data role of a DFP, while the sink port takes on the data role of a UFP." 데이터 역할을 바꾸려면 "USB PD data-role swap"을 써야 합니다(출처 [H5]).
+- Renesas 자료: source는 DFP, sink는 UFP라는 조합이 USB-A/USB-B와의 호환을 위한 필수 요구사항이며, "Role Swap is performed by USB PD communication."(출처 [H6])
+- 충전 중인 폰은 sink이므로 PD 없이는 기본적으로 UFP(기기) 역할이 되어, 피코를 제어하는 호스트(DFP)가 될 수 없습니다.
+- 수동 T자에서는 충전기의 VBUS와 폰이 OTG로 공급하는 VBUS가 한 선에서 만날 수 있어 권장하지 않습니다.
+
+**선택지:**
+1. 형태가 작은 T자라도 "PD 충전 + OTG 동시"를 명시한 어댑터(내부에 PD 컨트롤러가 있는 제품)를 사용
+2. 충전은 일반 케이블, 제어는 Pico W의 BLE/Wi-Fi (6.7절)
+
+이미 단순 T자 커넥터가 있다면 실험은 가능하되, 피코만 먼저 연결해 인식을 확인한 뒤 충전기를 연결하고, `adb shell dumpsys battery`로 충전 여부를 함께 확인합니다(이때 ADB는 무선 디버깅 사용).
+
+출처 추가
+- [H4] Hackaday, Arya Voronova, "All About USB-C: Resistors And Emarkers": https://hackaday.com/tag/emarker/
+- [H5] Texas Instruments, SLYY109B (USB Type-C 데이터 흐름과 역할): https://ti.com/document-viewer/lit/html/SLYY109B/GUID-DC703803-64D6-4C4A-8277-9153A58D8566
+- [H6] Renesas Engineer School, "USB Power Delivery 03": https://www.renesas.com/en/support/engineer-school/usb-power-delivery-03
